@@ -1,0 +1,9 @@
+value = 10*pi;
+disp(['value=' num2str(value)]); % 输出数值结果, 用num2str函数, 保留小数点后面的数字
+disp(['value=' int2str(value)]); % 输出数值结果, 用int2str函数, 不保留小数点后面的数字
+fprintf('value=%e\n', value); % 输出数值结果, 用fprintf函数, 保留小数点后面的数字
+fprintf('value=%f\n', value); % 默认保留小数点后六位
+fprintf('value=%g\n', value); % 保留小数点后四位, 若小数点后只有一位, 则不显示小数点
+fprintf('value=%12.4f\n', value); % 保留位数为12, 小数点后保留四位
+fprintf('value=%012.4f\n', value); % 左对齐, 保留位数为12, 小数点后保留四位
+fprintf('value=%-12.4f\n', value); % 右对齐, 保留位数为12, 小数点后保留四位
