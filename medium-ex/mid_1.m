@@ -18,8 +18,8 @@ for theta_2 = theta_2_range
     % 初始猜测值
     initial_guess = [1, 1]; % 你可以根据需要调整初始猜测值
 
-    % 使用 fsolve 求解方程
-    options = optimoptions('fsolve', 'Display', 'none'); % 采用的优化方法是 fsolve，不显示迭代过程
+    % 使用 fsolve 求解方程，fsolve 是一个数值求解器
+    options = optimoptions('fsolve', 'Display', 'none'); % 采用的优化方法是 fsolve，不显示迭代过程，只显示结果
     [sol, fval, exitflag] = fsolve(eqns, initial_guess, options); % 求解方程组
 
     % 检查求解是否成功
