@@ -1,60 +1,62 @@
-% 设定常量
-weight = 4000; % 重物重量，单位：kg
-g = 9.81; % 重力加速度，单位：m/s^2
-W = weight * g; % 重物的重力，单位：N
+function comon1()
+    % 初始猜测值
+    initial_guess = [pi/4, 0, 1.7];  % 这里是theta_2, theta_1, AB_0的初始值
 
-OC = 4; % 固定长度，单位：m
-BOC_angle = deg2rad(20); % 固定角度，单位：rad
+    % 参数上下界
+    lb = [0, -pi/9, 1.2];
+    ub = [pi/2, 4*pi/9, 2.2];
 
-% 变量范围和初值
-ub = [2.2, 2.2, deg2rad(80), deg2rad(80)]; % 上限
-x0 = [1.7, 1.7, deg2rad(30), deg2rad(30)]; % 初值
-lb = [1.2, 1.2, deg2rad(-20), deg2rad(-20)]; % 下限
+    % 调用fmincon进行优化
+    options = optimoptions('fmincon', 'Display', 'iter', 'Algorithm', 'sqp');
+    [optimal_params, F_min] = fmincon(@objectiveFunction, initial_guess, [], [], [], [], lb, ub, @nonlincon, options);
 
-% 优化选项
-options = optimoptions('fmincon', 'Display', 'iter', 'Algorithm', 'sqp');
+    % 显示结果
+    theta_2_opt = optimal_params(1);
+    theta_1_opt = optimal_params(2);
+    AB_0_opt = optimal_params(3);
 
-% 优化求解
-[x, fval] = fmincon(@peakLoad, x0, [], [], [], [], lb, ub, [], options);
+    fprintf('最优theta_2: %.4f\n', theta_2_opt);
+    fprintf('最优theta_1: %.4f\n', theta_1_opt);
+    fprintf('最优AB_0: %.4f\n', AB_0_opt);
+    fprintf('最小F: %.4f\n', F_min);
+end
 
-% 输出结果
-OA = x(1);
-OB = x(2);
-phi2 = rad2deg(x(3));
-phi1 = rad2deg(x(4));
-peak_load = fval;
-
-% 目标函数定义需要移动到这里
-function F = peakLoad(x)
-    weight = 4000; % 重定义，确保函数内部可用
+function F = objectiveFunction(params)
+    theta_2 = params(1);
+    theta_1 = params(2);
+    AB_0 = params(3);
+    
+    weight = 4000;
     g = 9.81;
     W = weight * g;
-    OC = 4;
-    BOC_angle = deg2rad(20);
+    
+    % 解方程得到x和y
+    options = optimoptions('fsolve', 'Display', 'none');
+    eqns = @(vars) [2.2^2 - vars(1)^2 - vars(2)^2 - 2 * vars(1) * vars(2) * cos(theta_2 + pi/18), ...
+                    1.2^2 - vars(1)^2 - vars(2)^2 + 2 * vars(1) * vars(2) * cos(theta_2)];
+    initial_guess = [1, 1];  % 初始猜测值
+    [sol, ~, exitflag] = fsolve(eqns, initial_guess, options);
+    
+    if exitflag <= 0
+        F = Inf; % 如果方程没有解，则返回无穷大
+        return;
+    end
+    
+    x = sol(1);
+    y = sol(2);
+    
+    if x <= 0 || y <= 0
+        F = Inf; % 如果没有正数解，则返回无穷大
+        return;
+    end
+    
+    % 计算F
+    OC = 1.0; % 假设OC为常数或您可以根据需求修改
+    F = W * cos(theta_1) * OC - W * sin(theta_1 + theta_2 + pi/18) * x / AB_0;
+end
 
-    OA = x(1);
-    OB = x(2);
-    phi2 = x(3);
-    phi1 = x(4);
-
-    % 计算点B的位置
-    Bx = OC * cos(phi1 + BOC_angle);
-    By = OC * sin(phi1 + BOC_angle);
-    
-    % 计算点A的位置
-    Ax = OA * cos(phi2);
-    Ay = OA * sin(phi2);
-    
-    % 计算AB的长度
-    AB = sqrt((Bx - Ax)^2 + (By - Ay)^2);
-    
-    % 计算液压油缸的载荷
-    Fx = W * (Bx / OC);
-    Fy = W * (By / OC);
-    
-    % 液压油缸的总力
-    load = sqrt(Fx^2 + Fy^2);
-    
-    % 返回峰值载荷
-    F = max(load);
+function [c, ceq] = nonlincon(~)
+    % 无非线性约束条件
+    c = [];
+    ceq = [];  % 如果有等式约束条件，在这里定义
 end
