@@ -25,6 +25,9 @@ OB = eval (SOS.y);
 OB1 = OB(1,:);
 OB2 = OB(2,:);
 
+AB1=zeros(101,101);
+F=zeros(101,101);
+
 for jj=1:101
     for ii=1:101
 AB1(ii,jj)=sqrt(OA1(jj).^2+OB1(jj).^2-2.*OA1(jj).*OB1(jj).*cos(fan1(ii)+fan2(jj)+pi/9));
