@@ -53,6 +53,6 @@ function gama_tao = Gibbs_tao_R1(p,t)
   s = t>=0 & t <=623.15 & p>= ps & p <= 100;
 % Calculate the dimensionless differential Gibbs function to tao at region 1
 for (i = 1:34)
-  gama_tao(s) = gama_pi(s) + n(i)*ji(i)*(7.1-pai(s)).^ii(i) .*(tao(s)-1.222).^(ji(i)-1);
+  gama_tao(s) = gama_tao(s) + n(i)*ji(i)*(7.1-pai(s)).^ii(i) .*(tao(s)-1.222).^(ji(i)-1);
 end
   
