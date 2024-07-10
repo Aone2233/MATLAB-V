@@ -49,6 +49,7 @@ function gama_pai = Gibbs_pai_R1(p,t)
 % calculate the dimensionless pressure and temperature
   pai = p./16.53;
   tao = 1386./t;
+% the range coverd by the equation
 s = t>=273.15 & t <=623.15 & p>= ps & p <= 100 ;
 % Calculate the dimensionless differential Gibbs function to pi at region 1
 for (i = 1:34)
