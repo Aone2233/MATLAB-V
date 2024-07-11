@@ -3,6 +3,7 @@ function p = pressure(rho,t)
 %
 %  Purpose: 
 %    This function calculates  the pressure by density and temperature 
+%    注意，当前计算函数覆盖三个区域，即三个区域均能采用当前函数进行计算
 % 
 %  Record of revisions:
 %      Date       Programmer          Description of change

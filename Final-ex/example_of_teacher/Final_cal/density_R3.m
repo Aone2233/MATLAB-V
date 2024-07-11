@@ -21,4 +21,4 @@ s1 = (r > 800 | r < 0);
 r(s1) = 0;
 
 function p = press_R3(rho,t)
-p = rho.*0.461526e3.*t.*rho./322.*Helmz_phi_R3(rho,t)./1e6;
+p = rho.*0.461526e3.*t.*rho./322.*Helmz_phi_delta_R3(rho,t)./1e6;

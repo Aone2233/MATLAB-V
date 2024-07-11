@@ -40,7 +40,7 @@ t23 = t_B23(p);
 % pai = p;
 tao = 540 ./ t;
 % the range coverd by the equation
-s = ((t >= ts & t <= 623.15) | t >= t23);
+s = ((t >= ts & t <= 623.15) | t >= t23) & t <= 1073.15;
 % Calculate the dimensionless differential Gibbs function to pi at region 1
 for i = 1:9
     gama_tao_0(s) = gama_tao_0(s) + n(i) * ji(i) .* tao(s) .^ (ji(i) - 1);
