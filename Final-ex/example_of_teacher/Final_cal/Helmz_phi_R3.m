@@ -48,7 +48,10 @@ delta = rho ./ 322;
 phi = n(1) .* log(delta);
 % calculate the dimensionless temperature
 tao = 647.096 ./ t;
+p = press_R3(rho,t);
+% 判定是否在区域3内
+s = t >= 623.15 & t <= t_B23(p) & p >= p_B23(t) & p <= 100;
 % Calculate the dimensionless differential Gibbs function to pi at region 1
 for i = 2:40
-    phi = phi + n(i) .* delta .^ ii(i) .* tao .^ ji(i);
+    phi(s) = phi(s) + n(i) .* delta .^ ii(i) .* tao .^ ji(i);
 end
