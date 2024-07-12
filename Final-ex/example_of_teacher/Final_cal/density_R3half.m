@@ -1,7 +1,7 @@
 function r = density_R3half(p,t)
 r1 = p*0+1;
 r2 = r1+900;
-r = r1;
+% r = r1;
 p1 = r1; p2 = r1; err = r1; r12 = r1; p12 = r1;
 
 while(~(err<1.0e-4))

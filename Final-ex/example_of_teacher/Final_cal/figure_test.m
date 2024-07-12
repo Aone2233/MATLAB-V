@@ -1,5 +1,5 @@
 % 步骤1: 生成温度和压力的网格
-t_range = 273.15:1:1073.15;
+t_range = 273.15:8:1073.15;
 p_range = 0:1:100;
 [T, P] = meshgrid(t_range, p_range);
 
@@ -21,7 +21,7 @@ save('s_h_values.mat', 's_0_matrix', 'h_0_matrix', 'T', 'P');
 
 % 步骤4: 绘制焓熵图
 figure;
-surf(s_0_matrix, h_0_matrix, T); % 使用T作为颜色映射
+plot(s_0_matrix, h_0_matrix); % 使用T作为颜色映射
 xlabel('熵 s_0 (kJ·kg^{-1}·K^{-1})');
 ylabel('焓 h_0 (kJ·kg^{-1})');
 zlabel('温度 T (K)');
