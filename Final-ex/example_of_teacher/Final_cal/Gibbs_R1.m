@@ -43,7 +43,7 @@ function gama = Gibbs_R1(p,t)
  ji = [-2, -1, 0, 1, 2, 3, 4, 5, -9, -7, -1, 0, 1, 3, -3,...
       0,1,3,17,-4,0,6,-5,-2,10,-8,-11,-6,-29,-31,-38,-39,-40,-41];
 % Initialize gama to zeros as same size as t.
-  gama = t*0;
+  gama = t .* 0;
 % Calculate the saturation pressure at the temperature of t
   ps = p_sat(t);
 % calculate the dimensionless pressure and temperature
@@ -53,6 +53,6 @@ function gama = Gibbs_R1(p,t)
   s = t>=273.15 & t <=623.15 & p>= ps & p <= 100;
 % Calculate the dimensionless Gibbs function at region 1
 for (i = 1:34)
-  gama(s) = gama(s) + n(i)*(7.1-pai(s)).^ii(i) .*(tao(s)-1.222).^ji(i);
+  gama(s) = gama(s) + n(i) .* (7.1-pai(s)) .^ ii(i) .* (tao(s)-1.222) .^ ji(i);
 end
   

@@ -46,7 +46,7 @@ ii = [1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,5,6,6,6,7,7,7,...
 ji = [0,1,2,3,6,1,2,4,7,36,0,1,3,6,35,1,2,3,7,3,16,35,0,...
 	 11,25,8,36,13,4,10,14,29,50,57,20,35,48,21,53,39,26,40,58];
 % Initialize gama to zeros as same size as t.
-  gama_tao = t*0;
+  gama_tao = t .* 0;
 % Calculate the saturation pressure at the temperature of t
   ts = t_sat(p);
   t23 = t_B23(p);
@@ -57,7 +57,7 @@ ji = [0,1,2,3,6,1,2,4,7,36,0,1,3,6,35,1,2,3,7,3,16,35,0,...
 s = ((t >= ts & t <= 623.15) | t >= t23) & t <= 1073.15;
 % Calculate the dimensionless differential Gibbs function to pi at region 1
 for i = 1:43
-  gama_tao(s) = gama_tao(s) + n(i)*ji(i).*pai(s).^ii(i) .*(tao(s)-0.5).^(ji(i)-1);
+  gama_tao(s) = gama_tao(s) + n(i) .* ji(i) .* pai(s) .^ ii(i) .* (tao(s)-0.5) .^ (ji(i)-1);
 end
 
   

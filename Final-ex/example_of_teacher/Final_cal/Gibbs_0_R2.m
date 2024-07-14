@@ -32,7 +32,7 @@ function gama_0 = Gibbs_0_R2(p, t)
              0.21268463753307D-1];
     ji = [0, 1, -5, -4, -3, -2, -1, 2, 3];
     % Initialize gama to zeros as same size as t.
-    gama_0 = t * 0;
+    gama_0 = t .* 0;
     % Calculate the saturation pressure at the temperature of t
     ts = t_sat(p);
     t23 = t_B23(p);

@@ -50,6 +50,6 @@ n = [0.10658070028513D1, -0.15732845290239D2,...
   tao = 647.096./t;
 % Calculate the dimensionless differential Gibbs function to pi at region 1
 for i = 2:40
-  phi_delta = phi_delta + n(i)*ii(i).*delta.^(ii(i)-1) .*tao.^ji(i);
+  phi_delta = phi_delta + n(i) .* ii(i) .* delta .^ (ii(i)-1) .* tao .^ ji(i);
 end
   
